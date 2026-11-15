@@ -1,0 +1,19 @@
+name: Issue triage
+on:
+  issues:
+    types: [opened]
+permissions:
+  issues: write
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        with:
+          script: |
+            await github.rest.issues.addAssignees({
+              ...context.repo,
+              issue_number: context.issue.number,
+              assignees: ['leonardoA-Silva']
+            });
